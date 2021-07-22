@@ -8,7 +8,7 @@ function App() {
   const [apptList, setApptList] = useState([]);
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("petName");
-  const [orderBy, setOrderBy] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const filteredApptList = apptList
     .filter(
@@ -18,7 +18,7 @@ function App() {
         item.aptNotes.toLowerCase().includes(query.toLowerCase())
     )
     .sort((a, b) => {
-      let order = orderBy === "asc" ? 1 : -1;
+      let order = sortOrder === "asc" ? 1 : -1;
       return a[sortBy].toLowerCase() < b[sortBy].toLowerCase()
         ? -1 * order
         : 1 * order;
@@ -44,6 +44,10 @@ function App() {
       <Search
         query={query}
         onQueryChange={(currQuery) => setQuery(currQuery)}
+        sortOrder={sortOrder}
+        onSortOrderChange={(mySort) => setSortOrder(mySort)}
+        sortBy={sortBy}
+        onSortByChange={(mySort) => setSortBy(mySort)}
       />
       <ul className="divide-y divide-gray-200">
         {filteredApptList.map((appt) => (
